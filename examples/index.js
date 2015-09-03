@@ -5,7 +5,7 @@
 var bunyan = require( 'bunyan' ),
 	request = require( 'request' ),
 	express = require( 'express' ),
-	router = require( './../lib' );
+	createRouter = require( './../lib' );
 
 
 // LOGGER //
@@ -32,7 +32,7 @@ var logger = bunyan.createLogger({
 var app = express();
 
 // Mount the router on the application:
-app.use( '/', router( logger ) );
+app.use( '/', createRouter( logger ) );
 
 // Create an HTTP server:
 app.listen( 7331, onListen );

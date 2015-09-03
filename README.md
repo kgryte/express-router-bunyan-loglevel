@@ -15,25 +15,226 @@ $ npm install express-router-bunyan-loglevel
 ## Usage
 
 ``` javascript
-var router = require( 'express-router-bunyan-loglevel' );
+var createRouter = require( 'express-router-bunyan-loglevel' );
 ```
 
-#### router( logger )
+#### createRouter( logger )
 
 Returns an [Express](http://expressjs.com/guide/using-middleware.html) router provided a [Bunyan](https://github.com/trentm/node-bunyan) logger.
 
 ``` javascript
+var bunyan = require( 'bunyan' );
 
+var logger = bunyan.createLogger({
+	'name': 'logger',
+	'streams': [
+		{
+			'name': 'main',
+			'level': 'info',
+			'stream': process.stdout
+		}
+	]
+});
+
+var router = createRouter( logger );
+```
+
+#### router
+
+A mountable [Express](http://expressjs.com/guide/routing.html) route handler.
+
+``` javascript
+var express = require( 'express' );
+
+// Create a new application:
+var app = express();
+
+// Mount the route handler on the application:
+app.use( '/logger', router );
+```
+
+---
+## Routes
+
+<a name="loglevel-put"></a>
+#### PUT /loglevel
+
+URI endpoint for setting the server application __global__ log level.
+
+
+##### Request: (application/json)
+
+The request should include a JSON body having the following fields:
+
+*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following (see [node-bunyan](https://github.com/trentm/node-bunyan#levels); `string` options listed along with their numeric equivalents):
+	-	(60) __fatal__
+	-	(50) __error__
+	-	(40) __warn__
+	-	(30) __info__
+	-	(20) __debug__
+	-	(10) __trace__
+
+``` javascript
+{
+	"level": <string|number>
+}
 ```
 
 
+##### Response: 204 (text/plain)
+
+The response body will be
+
+```
+OK
+```
+
+
+##### Error: 400 (application/json)
+
+If a request contains invalid body parameters, an error response will contain the error `status` and an associated `message`.
+
+``` javascript
+{
+	"status": 400,
+	"message": "...'"
+}
+```
+
+
+##### Examples
+
+From the command-line,
+
+``` bash
+$ curl -X PUT -d '{"level":"info"}' 'http://127.0.0.1:<port>/loglevel' --header "Content-type:application/json"
+```
+
+From another [Node](https://nodejs.org/) application,
+
+``` javascript
+var request = require( 'request' );
+
+var body = {
+	'level': 'info'
+};
+
+request({
+	'uri': 'http://127.0.0.1:<port>/loglevel',
+	'method': 'PUT',
+	'json': body
+}, onResponse );
+
+function onResponse( error, response, body ) {
+	if ( error ) {
+		console.error( error );
+		return;
+	}
+	console.log( body );
+}
+```
+
+A successful request will receive the following response body:
+
+```
+OK
+```
+
+===
+<a name="loglevel-name-put"></a>
+#### PUT /loglevel/:name
+
+URI endpoint for setting the log level for a log stream specified by the `name` parameter.
+
+
+##### Request: (application/json)
+
+The request should include a JSON body having the following fields:
+
+*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following (see [node-bunyan](https://github.com/trentm/node-bunyan#levels); `string` options listed along with their numeric equivalents):
+	-	(60) __fatal__
+	-	(50) __error__
+	-	(40) __warn__
+	-	(30) __info__
+	-	(20) __debug__
+	-	(10) __trace__
+
+``` javascript
+{
+	"level": <string|number>
+}
+```
+
+
+##### Response: 204 (text/plain)
+
+The response body will be
+
+```
+OK
+```
+
+
+##### Error: 400 (application/json)
+
+If a request contains invalid body parameters, an error response will contain the error `status` and an associated `message`.
+
+``` javascript
+{
+	"status": 400,
+	"message": "...'"
+}
+```
+
+
+##### Examples
+
+From the command-line,
+
+``` bash
+$ curl -X PUT -d '{"level":"info"}' 'http://127.0.0.1:<port>/loglevel/beep' --header "Content-type:application/json"
+```
+
+From another [Node](https://nodejs.org/) application,
+
+``` javascript
+var request = require( 'request' );
+
+var body = {
+	'level': 'info'
+};
+
+request({
+	'uri': 'http://127.0.0.1:<port>/loglevel/beep',
+	'method': 'PUT',
+	'json': body
+}, onResponse );
+
+function onResponse( error, response, body ) {
+	if ( error ) {
+		console.error( error );
+		return;
+	}
+	console.log( body );
+}
+```
+
+A successful request will receive the following response body:
+
+```
+OK
+```
+
+
+
+---
 ## Examples
 
 ``` javascript
 var bunyan = require( 'bunyan' ),
 	request = require( 'request' ),
 	express = require( 'express' ),
-	router = require( 'express-router-bunyan-loglevel' );
+	createRouter = require( 'express-router-bunyan-loglevel' );
 
 
 // LOGGER //
@@ -60,7 +261,7 @@ var logger = bunyan.createLogger({
 var app = express();
 
 // Mount the router on the application:
-app.use( '/', router( logger ) );
+app.use( '/', createRouter( logger ) );
 
 // Create an HTTP server:
 app.listen( 7331, onListen );
@@ -117,7 +318,7 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
-
+---
 ## Tests
 
 ### Unit
