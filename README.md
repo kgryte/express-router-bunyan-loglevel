@@ -20,7 +20,7 @@ var router = require( 'express-router-bunyan-loglevel' );
 
 #### router( logger )
 
-Returns an [Express](http://expressjs.com/guide/using-middleware.html) router.
+Returns an [Express](http://expressjs.com/guide/using-middleware.html) router provided a [Bunyan](https://github.com/trentm/node-bunyan) logger.
 
 ``` javascript
 
