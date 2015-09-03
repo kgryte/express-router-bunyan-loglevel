@@ -1,6 +1,6 @@
 {
   "name": "express-router-bunyan-loglevel",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Express router to set the log level(s) of a Bunyan logger.",
   "author": {
     "name": "Athan Reines",
