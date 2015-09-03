@@ -14,8 +14,8 @@
   ],
   "scripts": {
     "test": "mocha",
-    "test-cov": "istanbul cover ./node_modules/.bin/_mocha --dir ./reports/coverage -- -R spec",
-    "codecov": "istanbul cover ./node_modules/.bin/_mocha --dir ./reports/codecov/coverage --report lcovonly -- -R spec && cat ./reports/codecov/coverage/lcov.info | codecov && rm -rf ./reports/codecov"
+    "test-cov": "istanbul cover --no-default-excludes -x 'node_modules/**' -x '**/test/**' -x '**/tests/**' ./node_modules/.bin/_mocha --dir ./reports/coverage -- -R spec",
+    "codecov": "istanbul cover --no-default-excludes -x 'node_modules/**' -x '**/test/**' -x '**/tests/**' ./node_modules/.bin/_mocha --dir ./reports/codecov/coverage --report lcovonly -- -R spec && cat ./reports/codecov/coverage/lcov.info | codecov && rm -rf ./reports/codecov"
   },
   "main": "./lib",
   "repository": {
@@ -35,7 +35,10 @@
     "endpoint",
     "debug",
     "middleware",
-    "mw"
+    "mw",
+    "update",
+    "put",
+    "rest"
   ],
   "bugs": {
     "url": "https://github.com/kgyte/express-router-bunyan-loglevel/issues"
@@ -47,6 +50,7 @@
     "validate.io-number-primitive": "^1.0.0"
   },
   "devDependencies": {
+    "@kgryte/noop": "^1.0.0",
     "bunyan": "^1.4.0",
     "chai": "3.x.x",
     "codecov.io": "^0.1.5",

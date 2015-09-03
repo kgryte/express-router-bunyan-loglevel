@@ -92,6 +92,10 @@ test-istanbul-mocha: node_modules
 	NODE_ENV=$(NODE_ENV) \
 	NODE_PATH=$(NODE_PATH_TEST) \
 	$(ISTANBUL) cover \
+		--no-default-excludes \
+		-x "node_modules/**" \
+		-x "**/test/**" \
+		-x "**/tests/**" \
 		--dir $(ISTANBUL_OUT) \
 		--report $(ISTANBUL_REPORT) \
 	$(_MOCHA) -- \
