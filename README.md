@@ -192,7 +192,7 @@ If a request contains invalid body parameters, an error response will contain th
 From the command-line,
 
 ``` bash
-$ curl -X PUT -d '{"level":"info"}' 'http://127.0.0.1:<port>/loglevel/beep' --header "Content-type:application/json"
+$ curl -X PUT -d '{"level":"info"}' 'http://127.0.0.1:<port>/loglevel/<name>' --header "Content-type:application/json"
 ```
 
 From another [Node](https://nodejs.org/) application,
@@ -205,7 +205,7 @@ var body = {
 };
 
 request({
-	'uri': 'http://127.0.0.1:<port>/loglevel/beep',
+	'uri': 'http://127.0.0.1:<port>/loglevel/<name>',
 	'method': 'PUT',
 	'json': body
 }, onResponse );
