@@ -1,0 +1,60 @@
+{
+  "name": "express-router-bunyan-loglevel",
+  "version": "0.0.0",
+  "description": "Express router to set the log level(s) of a Bunyan logger.",
+  "author": {
+    "name": "Athan Reines",
+    "email": "kgryte@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Athan Reines",
+      "email": "kgryte@gmail.com"
+    }
+  ],
+  "scripts": {
+    "test": "mocha",
+    "test-cov": "istanbul cover ./node_modules/.bin/_mocha --dir ./reports/coverage -- -R spec",
+    "codecov": "istanbul cover ./node_modules/.bin/_mocha --dir ./reports/codecov/coverage --report lcovonly -- -R spec && cat ./reports/codecov/coverage/lcov.info | codecov && rm -rf ./reports/codecov"
+  },
+  "main": "./lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kgryte/express-router-bunyan-loglevel.git"
+  },
+  "keywords": [
+    "express",
+    "router",
+    "application",
+    "app",
+    "mount",
+    "routes",
+    "bunyan",
+    "log",
+    "level",
+    "endpoint",
+    "debug",
+    "middleware",
+    "mw"
+  ],
+  "bugs": {
+    "url": "https://github.com/kgyte/express-router-bunyan-loglevel/issues"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "validate.io-contains": "^1.0.0",
+    "validate.io-number-primitive": "^1.0.0"
+  },
+  "devDependencies": {
+    "bunyan": "^1.4.0",
+    "chai": "3.x.x",
+    "codecov.io": "^0.1.5",
+    "istanbul": "^0.3.0",
+    "jshint": "2.x.x",
+    "jshint-stylish": "2.x.x",
+    "mocha": "2.x.x",
+    "request": "^2.61.0"
+  },
+  "license": "MIT"
+}
