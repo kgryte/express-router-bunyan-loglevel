@@ -41,7 +41,7 @@
     "rest"
   ],
   "bugs": {
-    "url": "https://github.com/kgyte/express-router-bunyan-loglevel/issues"
+    "url": "https://github.com/kgryte/express-router-bunyan-loglevel/issues"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
